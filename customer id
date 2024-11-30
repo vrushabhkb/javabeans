@@ -1,0 +1,104 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class beans {
+
+    // Customer class within the same file
+    public static class Customer implements Comparable<Customer> {
+        private int id;
+        private double balance;
+        private String firstName;
+        private String lastName;
+
+        // No-argument constructor
+        public Customer() {}
+
+        // Parameterized constructor
+        public Customer(int id, String firstName, String lastName, double balance) {
+            this.id = id;
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.balance = balance;
+        }
+
+        // Getter and Setter methods
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public double getBalance() {
+            return balance;
+        }
+
+        public void setBalance(double balance) {
+            this.balance = balance;
+        }
+
+        public String getFirstName() {
+            return firstName;
+        }
+
+        public void setFirstName(String firstName) {
+            this.firstName = firstName;
+        }
+
+        public String getLastName() {
+            return lastName;
+        }
+
+        public void setLastName(String lastName) {
+            this.lastName = lastName;
+        }
+
+        // Implement compareTo method to define sorting logic
+        @Override
+        public int compareTo(Customer other) {
+            // Compare by First Name
+            int result = this.firstName.compareTo(other.firstName);
+            if (result != 0) return result;
+
+            // Compare by Last Name if First Name is equal
+            result = this.lastName.compareTo(other.lastName);
+            if (result != 0) return result;
+
+            // Compare by ID if First and Last Names are equal
+            result = Integer.compare(this.id, other.id);
+            if (result != 0) return result;
+
+            // Compare by Balance if all other fields are equal
+            return Double.compare(this.balance, other.balance);
+        }
+
+        @Override
+        public String toString() {
+            return "Customer[ID=" + id + ", Name=" + firstName + " " + lastName + ", Balance=" + balance + "]";
+        }
+    }
+
+    public static void main(String[] args) {
+        // Create a list of customers
+        List<Customer> customers = new ArrayList<>();
+
+        // Add customers to the list
+        customers.add(new Customer(1, "John", "Doe", 500.75));
+        customers.add(new Customer(2, "Jane", "Smith", 1200.40));
+        customers.add(new Customer(3, "John", "Smith", 1500.00));
+        customers.add(new Customer(4, "Alice", "Johnson", 1000.50));
+        customers.add(new Customer(5, "Bob", "Brown", 450.00));
+
+        // Sort the list of customers based on the specified criteria
+        Collections.sort(customers);
+
+        // Print sorted customers
+        for (Customer customer : customers) {
+            System.out.println(customer);
+        }
+    }
+}
+
+
